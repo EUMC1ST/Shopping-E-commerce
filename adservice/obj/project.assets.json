@@ -11871,11 +11871,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Curso\\source\\repos\\NetCore\\WebAPIs\\Shopping\\adservice\\adservice.csproj",
+      "projectUniqueName": "C:\\Users\\Curso\\Desktop\\Shopping-E-commerce\\adservice\\adservice.csproj",
       "projectName": "adservice",
-      "projectPath": "C:\\Users\\Curso\\source\\repos\\NetCore\\WebAPIs\\Shopping\\adservice\\adservice.csproj",
+      "projectPath": "C:\\Users\\Curso\\Desktop\\Shopping-E-commerce\\adservice\\adservice.csproj",
       "packagesPath": "C:\\Users\\Curso\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Curso\\source\\repos\\NetCore\\WebAPIs\\Shopping\\adservice\\obj\\",
+      "outputPath": "C:\\Users\\Curso\\Desktop\\Shopping-E-commerce\\adservice\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -11889,8 +11889,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://dotnet.myget.org/F/blazor-dev/api/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.1": {
