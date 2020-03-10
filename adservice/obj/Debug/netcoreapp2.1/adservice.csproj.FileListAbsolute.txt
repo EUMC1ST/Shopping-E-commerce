@@ -1,0 +1,3 @@
+C:\Users\Curso\source\repos\Shopping\adservice\obj\Debug\netcoreapp2.1\adservice.csproj.CoreCompileInputs.cache
+C:\Users\Curso\source\repos\Shopping\adservice\obj\Debug\netcoreapp2.1\adservice.AssemblyInfoInputs.cache
+C:\Users\Curso\source\repos\Shopping\adservice\obj\Debug\netcoreapp2.1\adservice.AssemblyInfo.cs

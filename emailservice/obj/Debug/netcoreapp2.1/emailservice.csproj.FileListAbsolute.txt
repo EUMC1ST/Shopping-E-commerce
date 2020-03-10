@@ -1,0 +1,3 @@
+C:\Users\Curso\source\repos\Shopping\emailservice\obj\Debug\netcoreapp2.1\emailservice.csproj.CoreCompileInputs.cache
+C:\Users\Curso\source\repos\Shopping\emailservice\obj\Debug\netcoreapp2.1\emailservice.AssemblyInfoInputs.cache
+C:\Users\Curso\source\repos\Shopping\emailservice\obj\Debug\netcoreapp2.1\emailservice.AssemblyInfo.cs
