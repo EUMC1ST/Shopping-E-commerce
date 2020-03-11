@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 namespace adservice
 {
@@ -26,6 +27,23 @@ namespace adservice
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo()
+                {
+                    Version = "v1",
+                    Title = "Ads Service API Documentation",
+                    Description = "This documentation provide the information about Ads service",
+                    TermsOfService = null,
+                    Contact = new OpenApiContact()
+                    {
+                        Name = "Softtek GDC Monterrey",
+                        Email = "softtek@contact.com.mx",
+                        Url = null
+                    }
+
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +60,8 @@ namespace adservice
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ad Service API"));
         }
     }
 }

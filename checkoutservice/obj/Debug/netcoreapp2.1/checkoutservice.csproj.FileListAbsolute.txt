@@ -42,3 +42,4 @@ C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\n
 C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.RazorTargetAssemblyInfo.cache
 C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.dll
 C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.pdb
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
