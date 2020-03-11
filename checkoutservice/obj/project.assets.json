@@ -12852,11 +12852,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Curso\\source\\repos\\NetCore\\WebAPIs\\Shopping\\checkoutservice\\checkoutservice.csproj",
+      "projectUniqueName": "C:\\Users\\Curso\\Desktop\\Shopping-E-commerce\\checkoutservice\\checkoutservice.csproj",
       "projectName": "checkoutservice",
-      "projectPath": "C:\\Users\\Curso\\source\\repos\\NetCore\\WebAPIs\\Shopping\\checkoutservice\\checkoutservice.csproj",
+      "projectPath": "C:\\Users\\Curso\\Desktop\\Shopping-E-commerce\\checkoutservice\\checkoutservice.csproj",
       "packagesPath": "C:\\Users\\Curso\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Curso\\source\\repos\\NetCore\\WebAPIs\\Shopping\\checkoutservice\\obj\\",
+      "outputPath": "C:\\Users\\Curso\\Desktop\\Shopping-E-commerce\\checkoutservice\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12870,8 +12870,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://dotnet.myget.org/F/blazor-dev/api/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.1": {

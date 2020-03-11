@@ -10,10 +10,10 @@ namespace checkoutservice.Controllers
 {
     //[Route("api/[controller]/[action]")]
     [ApiController]
-    public class checkoutController : ControllerBase
+    public class CheckoutController : ControllerBase
     {
         ApiCalls Api;
-        public checkoutController(bool test = false)
+        public CheckoutController(bool test = false)
         {
             if (test == false)
             {
@@ -27,7 +27,7 @@ namespace checkoutservice.Controllers
         [HttpPost]
         [Route("api/checkout/checkPaymentService")]
         //En vez de recibir un UserID, recibir un objeto de tipo User.
-        public ActionResult checkPaymentService(UserInfo User)
+        public ActionResult CheckPaymentService(UserInfo User)
         {
             var cartList = Api.CartService(User.UserId);
             List<ProductInfo> productInfo = new List<ProductInfo>();
