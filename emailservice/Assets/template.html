@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Order Confirmation</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,500" rel="stylesheet">
+</head>
+<style>
+    body{
+        font-family: 'Roboto', sans-serif;
+    }
+</style>
+<body>
+<h2>Dear {order.customer.name} Your Order Confirmation</h2>
+<p>Thanks for shopping with us!<p>
+<h3>Order ID</h3>
+<p>#{order.id}</p>
+<h3>Shipping</h3>
+<p>#{order.shipping_tracking_id}</p>
+<p>{order.shipping_address.street_address_1}, {order.shipping_address.street_address_2}, {order.shipping_address.city}, {order.shipping_address.country} {order.shipping_address.zip_code}</p>
+<h3>Items</h3>
+
+</body>
+</html>

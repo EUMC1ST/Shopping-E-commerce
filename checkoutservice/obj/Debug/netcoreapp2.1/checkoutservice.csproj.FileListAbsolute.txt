@@ -28,3 +28,17 @@ C:\Users\Curso\Desktop\Shopping-E-commerce\checkoutservice\obj\Debug\netcoreapp2
 C:\Users\Curso\Desktop\Shopping-E-commerce\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.dll
 C:\Users\Curso\Desktop\Shopping-E-commerce\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.pdb
 C:\Users\Curso\Desktop\Shopping-E-commerce\checkoutservice\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\bin\Debug\netcoreapp2.1\checkoutservice.deps.json
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\bin\Debug\netcoreapp2.1\checkoutservice.runtimeconfig.json
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\bin\Debug\netcoreapp2.1\checkoutservice.runtimeconfig.dev.json
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\bin\Debug\netcoreapp2.1\checkoutservice.dll
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\bin\Debug\netcoreapp2.1\checkoutservice.pdb
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.csprojAssemblyReference.cache
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.csproj.CoreCompileInputs.cache
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.RazorAssemblyInfo.cache
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.RazorAssemblyInfo.cs
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.AssemblyInfoInputs.cache
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.AssemblyInfo.cs
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.RazorTargetAssemblyInfo.cache
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.dll
+C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\checkoutservice\obj\Debug\netcoreapp2.1\checkoutservice.pdb
