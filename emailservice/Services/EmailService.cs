@@ -64,7 +64,7 @@ namespace emailservice.Services
             }
             body = body.Replace("{order.customer.name}", order.Customer.Name);
             body = body.Replace("{order.id}", order.Id.ToString());
-            body = body.Replace("{order.shipping_tracking_id}", order.ShippingTrackingId );
+            //body = body.Replace("{order.shipping_tracking_id}", order.ShippingTrackingId );
             body = body.Replace("{order.shipping_address.street_address_1}", order.ShippingAddress.StreetAddress1);
             body = body.Replace("{order.shipping_address.street_address_2}", order.ShippingAddress.StreetAddress2);
             body = body.Replace("{order.shipping_address.country}", order.ShippingAddress.Country);
