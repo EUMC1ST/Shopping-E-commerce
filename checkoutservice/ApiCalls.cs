@@ -15,7 +15,7 @@ namespace checkoutservice
         string BaseUrl = "alguna/url/delasapis";
         string pathController;
 
-        public Cart CartService(int userID)
+        public virtual Cart CartService(int userID)
         {
             pathController = "api/cart?userId=";
             client.BaseAddress = new Uri(BaseUrl);
@@ -26,7 +26,7 @@ namespace checkoutservice
             var resultadoFinal = JsonConvert.DeserializeObject<Cart>(readresult);
             return resultadoFinal;
         }
-        public ProductInfo ProductCatalog(int productID)
+        public virtual ProductInfo ProductCatalog(int productID)
         {
             pathController = "api/productCatalogService/";
             client.BaseAddress = new Uri(BaseUrl);

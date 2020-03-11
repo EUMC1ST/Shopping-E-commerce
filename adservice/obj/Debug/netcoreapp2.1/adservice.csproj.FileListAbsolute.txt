@@ -11,7 +11,25 @@ C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\adservice\obj\Debug\netcore
 C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\adservice\obj\Debug\netcoreapp2.1\adservice.AssemblyInfoInputs.cache
 C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\adservice\obj\Debug\netcoreapp2.1\adservice.AssemblyInfo.cs
 C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\adservice\obj\Debug\netcoreapp2.1\adservice.RazorTargetAssemblyInfo.cache
+<<<<<<< HEAD
 C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\adservice\bin\Debug\netcoreapp2.1\adservice.pdb
 C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\adservice\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
 C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\adservice\obj\Debug\netcoreapp2.1\adservice.dll
 C:\Users\Curso\source\repos\NetCore\WebAPIs\Shopping\adservice\obj\Debug\netcoreapp2.1\adservice.pdb
+=======
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\bin\Debug\netcoreapp2.1\adservice.deps.json
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\bin\Debug\netcoreapp2.1\adservice.runtimeconfig.json
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\bin\Debug\netcoreapp2.1\adservice.runtimeconfig.dev.json
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\bin\Debug\netcoreapp2.1\adservice.dll
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\bin\Debug\netcoreapp2.1\adservice.pdb
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\obj\Debug\netcoreapp2.1\adservice.csprojAssemblyReference.cache
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\obj\Debug\netcoreapp2.1\adservice.csproj.CoreCompileInputs.cache
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\obj\Debug\netcoreapp2.1\adservice.RazorAssemblyInfo.cache
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\obj\Debug\netcoreapp2.1\adservice.RazorAssemblyInfo.cs
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\obj\Debug\netcoreapp2.1\adservice.AssemblyInfoInputs.cache
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\obj\Debug\netcoreapp2.1\adservice.AssemblyInfo.cs
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\obj\Debug\netcoreapp2.1\adservice.RazorTargetAssemblyInfo.cache
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\obj\Debug\netcoreapp2.1\adservice.dll
+C:\Users\Curso\Desktop\Shopping-E-commerce\adservice\obj\Debug\netcoreapp2.1\adservice.pdb
+>>>>>>> dev
