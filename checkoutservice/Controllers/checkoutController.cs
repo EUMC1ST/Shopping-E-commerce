@@ -32,25 +32,20 @@ namespace checkoutservice.Controllers
         {
             var cartList = Api.CartService(User.UserId);
             //Obtenemos de el objeto regresado Cart obtenemos los ID de la lista Productos almacenada en Items
-            //var productsID = cartList.Productos.Select(x => x.ProductId).ToList();
             List<ProductInfo> productInfo = cartList.Productos.Select(x => Api.ProductCatalog(x.ProductId)).ToList();
-            List<CurrencyChange> currencyChanges = new List<CurrencyChange>();
-            foreach (var item in productInfo)
-            {
-                currencyChanges.Add(new CurrencyChange() {
-                    CurrencyCode = item.Price.CurrencyCode,
-                    Units = item.Price.Units, Nano = item.Price.Nano, CurrencyType = User.CurrencyChange
-                });
-            }
-            //List<double> priceOfProducts = productInfo.Select(x => Api.Currency(x.Price, currencyType)).ToList();
+
+            List<CurrencyChange> currencyChanges = productInfo.Select(x => new CurrencyChange()
+                                                                {
+                                                                    CurrencyCode = x.Price.CurrencyCode,
+                                                                    Units = x.Price.Units,
+                                                                    Nano = x.Price.Nano,
+                                                                    CurrencyType = User.CurrencyChange
+                                                                }).ToList();
+
             List<double> priceOfProducts = currencyChanges.Select(x => Api.Currency(x)).ToList();
             List<int> quantity = cartList.Productos.Select(x => x.Quantity).ToList();
-            List<double> costs = new List<double>();
-            for (int i = 0; i < priceOfProducts.Count; i++)
-            {
-                costs.Add(quantity[i] * priceOfProducts[i]);
-            }
-            double totalCostOfProducts = costs.Sum();
+
+            double totalCostOfProducts = priceOfProducts.Select((x, i) => x * quantity[i]).Sum();
 
             // costo de envio
             double shippingCost = Api.Shipping(totalCostOfProducts);
@@ -58,10 +53,11 @@ namespace checkoutservice.Controllers
             double totalCost = totalCostOfProducts + shippingCost;
 
             //payment
-            PaymentModel paymentModel = new PaymentModel(){
-                    TargetNumber = User.NumTarget,
-                    TotalToPay = totalCost
-                };
+            PaymentModel paymentModel = new PaymentModel()
+            {
+                TargetNumber = User.NumTarget,
+                TotalToPay = totalCost
+            };
             string TransactionId = Api.Payment(paymentModel);
             //-------------
 
