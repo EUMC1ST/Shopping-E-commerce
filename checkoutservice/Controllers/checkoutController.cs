@@ -23,6 +23,7 @@ namespace checkoutservice.Controllers
             else
             {
                 //AGARRA EL MOCK
+                Api = new ApiCallsMock();
             }
         }
         [HttpPost]
@@ -36,53 +37,48 @@ namespace checkoutservice.Controllers
             List<double> priceOfProducts = new List<double>();
             try
             {
-                 cartList = Api.CartService(User.UserId);
-            }catch(Exception e)
+                cartList = Api.CartService(User.UserId);
+            }
+            catch (Exception e)
             {
                 return Content("No ha sido posible conectar con el api de cart");
             }
-            if(cartList.Productos==null || cartList.Productos.Count == 0)
+            if (cartList.Productos == null || cartList.Productos.Count == 0)
             {
                 return Content("No se han agregado Items al Cart");
             }
             //Obtenemos de el objeto regresado Cart obtenemos los ID de la lista Productos almacenada en Items
             try
-            {
-                 productInfo = cartList.Productos.Select(x => Api.ProductCatalog(x.ProductId)).ToList();
-            }catch(Exception e)
+            {//hasta aqui todo bien
+                productInfo = cartList.Productos.Select(x => Api.ProductCatalog(x.ProductId)).ToList();
+            }
+            catch (Exception e)
             {
                 return Content("No se ha podido conectar con product catalog");
             }
-            try
+            //Hasta aqui todo sigue bien xD
+            currencyChanges = productInfo.Select(x => new CurrencyChange()
             {
-                 currencyChanges = productInfo.Select(x => new CurrencyChange()
-                {
-                    CurrencyCode = x.Price.CurrencyCode,
-                    Units = x.Price.Units,
-                    Nano = x.Price.Nano,
-                    CurrencyType = User.CurrencyChange
-                }).ToList();
-            }catch(Exception e)
-            {
-                return Content("No eres tu, soy yo(Error en sacar los precios del productInfo)");
-            }
+                CurrencyCode = x.Price.CurrencyCode,
+                Units = x.Price.Units,
+                Nano = x.Price.Nano,
+                CurrencyType = User.CurrencyChange
+            }).ToList();
             try
             {
                 priceOfProducts = currencyChanges.Select(x => Api.Currency(x)).ToList();
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return Content("No ha sido posible conectar con CurrencyChange");
             }
-
             List<int> quantity = cartList.Productos.Select(x => x.Quantity).ToList();
             double totalCostOfProducts = priceOfProducts.Select((x, i) => x * quantity[i]).Sum();
-
             // costo de envio *******Puede haber un cambio al mandar los parametros en Shipping*********
+            //Hasta aqui todo bien
             double shippingCost = Api.Shipping(totalCostOfProducts);
-
             // total de compra
             double totalCost = totalCostOfProducts + shippingCost;
-
             //payment
             PaymentModel paymentModel = new PaymentModel()
             {
@@ -92,15 +88,16 @@ namespace checkoutservice.Controllers
             try
             {
                 string TransactionId = Api.Payment(paymentModel);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return Content("Error at conecting to payment");
             }
-            //-------------
-
             //Email
             Order CustomerOrder = new Order();
-            CustomerOrder.Id = 000001;//Ocupamos el ID de la compra o lo generamos nosotros?
+            CustomerOrder.Customer = new Customer();
+            CustomerOrder.ShippingAddress = new ShippingAddress();
+            CustomerOrder.Id = 1;//Ocupamos el ID de la compra o lo generamos nosotros?
             CustomerOrder.Customer.Id = User.UserId;
             CustomerOrder.Customer.Name = User.Name;
             CustomerOrder.Customer.Email = User.Email;
@@ -114,7 +111,8 @@ namespace checkoutservice.Controllers
             try
             {
                 ActionResult status = Api.Email(CustomerOrder);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return Content("Error at send Email");
             }
