@@ -1,4 +1,5 @@
 ﻿using checkoutservice.Models;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,71 +23,38 @@ namespace checkoutservice
         public virtual Cart CartService(int userID)
         {
             pathController = "api/cart?userId=" + userID;
-            //client.BaseAddress = new Uri(BaseUrl);
-            //var response = client.GetAsync(pathController+userID);
-            //response.Wait();
-            //var result = response.Result;
-            //var readresult = result.Content.ReadAsStringAsync().Result;
-            //var resultadoFinal = JsonConvert.DeserializeObject<Cart>(readresult);
-            //return resultadoFinal;
             return request.TheGet<Cart>(pathController);
         }
         public virtual ProductInfo ProductCatalog(int productID)
         {
-            //pathController = "api/productCatalogService/";
-            //client.BaseAddress = new Uri(BaseUrl);
-            //var response = client.GetAsync(pathController + productID);
-            //response.Wait();
-            //var result = response.Result;
-            //var readresult = result.Content.ReadAsStringAsync().Result;
-            //var resultadoFinal = JsonConvert.DeserializeObject<ProductInfo>(readresult);
-            //return resultadoFinal;
-            return new ProductInfo();
+            pathController = "api/productCatalogService/"+productID;
+            return request.TheGet<ProductInfo>(pathController);
         }
 
         //INVENTADO--------------------------
 
         public virtual double Currency(CurrencyChange currencyChange)
         {
-            //pathController = "";
-            //client.BaseAddress = new Uri(BaseUrl);
-            //string json = JsonConvert.SerializeObject(currencyChange); //----
-            //var httpcontent = new StringContent(json, Encoding.UTF8, "application/json");
-            //var response = client.PostAsync(pathController, httpcontent);
-            //response.Wait();
-            //var result = response.Result;
-            //var readresult = result.Content.ReadAsStringAsync().Result;
-            //var resultadoFinal = JsonConvert.DeserializeObject<double>(readresult);
-            //return resultadoFinal;
-            return 1.2;
+            pathController = "";
+            return request.ThePost<CurrencyChange,double>(currencyChange, pathController);
         }
 
         public virtual double Shipping(double totalCostOfProducts)
         {
-            //pathController = "";
-            //client.BaseAddress = new Uri(BaseUrl);
-            //var response = client.GetAsync(pathController + totalCostOfProducts);
-            //response.Wait();
-            //var result = response.Result;
-            //var readresult = result.Content.ReadAsStringAsync().Result;
-            //var ShippingCost = JsonConvert.DeserializeObject<double>(readresult);
-            //return ShippingCost;
-            return 3.4;
+            pathController = ""+totalCostOfProducts;
+            return request.TheGet<double>(pathController);
         }
 
         public virtual string Payment(PaymentModel paymentModel)
         {
-            //pathController = "";
-            //client.BaseAddress = new Uri(BaseUrl);
-            //string json = JsonConvert.SerializeObject(paymentModel); //----
-            //var httpcontent = new StringContent(json, Encoding.UTF8, "application/json");
-            //var response = client.PostAsync(pathController, httpcontent);
-            //response.Wait();
-            //var result = response.Result;
-            //var readresult = result.Content.ReadAsStringAsync().Result;
-            //var TransactionId = JsonConvert.DeserializeObject<string>(readresult);
-            //return TransactionId;
-            return "";
+            pathController = "";
+            return request.ThePost<PaymentModel,string>(paymentModel,pathController);
+        }
+
+        public virtual ActionResult Email(Order CustomerOrder)
+        {
+            pathController = "";
+            return request.ThePost<Order, ActionResult>(CustomerOrder, pathController);
         }
     }
 }
