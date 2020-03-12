@@ -13,6 +13,5 @@ namespace emailservice.Models
         public string ShippingTrackingId { get; set; }
         public ShippingAddress ShippingAddress { get; set; }
         public List<Item> Items { get; set; }
-
     }
 }
