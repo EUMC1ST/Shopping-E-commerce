@@ -18,7 +18,7 @@ namespace checkoutservice.Controllers
         {
             if (test == false)
             {
-                Api = new ApiCallsMock(); // aqui es ApiCalls()
+                Api = new ApiCalls(); 
             }
             else
             {
@@ -27,7 +27,7 @@ namespace checkoutservice.Controllers
             }
         }
         [HttpPost]
-        [Route("api/checkout/checkPaymentService")]
+        [Route("api/checkout/")]
         //En vez de recibir un UserID, recibir un objeto de tipo User.
         public ActionResult CheckPaymentService(UserInfo User)
         {

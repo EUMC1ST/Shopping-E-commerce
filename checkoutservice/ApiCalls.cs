@@ -23,38 +23,38 @@ namespace checkoutservice
         public virtual Cart CartService(int userID)
         {
             pathController = "api/cart?userId=" + userID;
-            return request.TheGet<Cart>(pathController);
+            return request.TheGet<Cart>(pathController, "https://academia-cartservice.azurewebsites.net/");
         }
         public virtual ProductInfo ProductCatalog(int productID)
         {
             pathController = "api/productCatalogService/"+productID;
-            return request.TheGet<ProductInfo>(pathController);
+            return request.TheGet<ProductInfo>(pathController, "https://academiaproductcatalogservice.azurewebsites.net/");
         }
 
         //INVENTADO--------------------------
 
         public virtual double Currency(CurrencyChange currencyChange)
         {
-            pathController = "";
-            return request.ThePost<CurrencyChange,double>(currencyChange, pathController);
+            pathController = "api/currency";
+            return request.ThePost<CurrencyChange,double>(currencyChange, pathController, "https://academia-currencyservice.azurewebsites.net/");
         }
 
         public virtual double Shipping(double totalCostOfProducts)
         {
             pathController = ""+totalCostOfProducts;
-            return request.TheGet<double>(pathController);
+            return request.TheGet<double>(pathController, "https://academia-shippingservice.azurewebsites.net/");
         }
 
         public virtual string Payment(PaymentModel paymentModel)
         {
-            pathController = "";
-            return request.ThePost<PaymentModel,string>(paymentModel,pathController);
+            pathController = "api/payment";
+            return request.ThePost<PaymentModel,string>(paymentModel, pathController, "https://academia-paymentservice.azurewebsites.net/");
         }
 
         public virtual ActionResult Email(Order CustomerOrder)
         {
-            pathController = "";
-            return request.ThePost<Order, ActionResult>(CustomerOrder, pathController);
+            pathController = "api/Email";
+            return request.ThePost<Order, ActionResult>(CustomerOrder, pathController, "https://academy-emailservice.azurewebsites.net/");
         }
     }
 }

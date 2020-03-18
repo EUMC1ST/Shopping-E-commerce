@@ -11,9 +11,9 @@ namespace checkoutservice
     public class HttpRequests
     {
         HttpClient client = new HttpClient();
-        readonly string BaseUrl = "alguna/url/delasapis";
+        //readonly string BaseUrl = "alguna/url/delasapis";
         // metodo<quetipo>(entradas)
-        public output TheGet<output>(string pathController)
+        public output TheGet<output>(string pathController, string BaseUrl)
         {
             client.BaseAddress = new Uri(BaseUrl);
             var response = client.GetAsync(pathController);
@@ -24,7 +24,7 @@ namespace checkoutservice
             return resultadoFinal;
         }
 
-        public output ThePost<input, output>(input model, string pathController)
+        public output ThePost<input, output>(input model, string pathController, string BaseUrl)
         {
             client.BaseAddress = new Uri(BaseUrl);
             string json = JsonConvert.SerializeObject(model); //----
