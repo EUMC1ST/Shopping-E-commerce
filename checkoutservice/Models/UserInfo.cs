@@ -8,7 +8,10 @@ namespace checkoutservice.Models
     public class UserInfo
     {
         public int UserId { get; set; }
-        public string NumTarget { get; set; }
+        public string Credit_number_target { get; set; }
+        public string Month { get; set; }
+        public string Year { get; set; }
+        public int CVV { get; set; }
         public string Name { get; set; }
         public string StreetAddress1 { get; set; }
         public string StreetAddress2 { get; set; }
