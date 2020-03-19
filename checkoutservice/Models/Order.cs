@@ -7,7 +7,7 @@ namespace checkoutservice.Models
 {
     public class Order
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public Customer Customer { get; set; }
         public string ShippingTrackingId { get; set; }
         public ShippingAddress ShippingAddress { get; set; }

@@ -74,9 +74,9 @@ namespace checkoutservice.Controllers
             }
             List<int> quantity = cartList.Productos.Select(x => x.quantity).ToList();
             double totalCostOfProducts = priceOfProducts.Select((x, i) => x * quantity[i]).Sum();
-            // costo de envio *******Puede haber un cambio al mandar los parametros en Shipping*********
-            //Hasta aqui todo bien
-            //double shippingCost = Api.Shipping(totalCostOfProducts, ); // FALTA ESTO----------
+            //Shipping Methods
+            //string ShippingTrackingID = Api.
+            //double shippingCost = Api.Shipping(totalCostOfProducts); // FALTA ESTO----------
             double shippingCost = 1000; // ----------------
             // total de compra
             double totalCost = totalCostOfProducts + shippingCost;
@@ -98,7 +98,7 @@ namespace checkoutservice.Controllers
             Order CustomerOrder = new Order();
             CustomerOrder.Customer = new Customer();
             CustomerOrder.ShippingAddress = new ShippingAddress();
-            CustomerOrder.Id = 1;//Ocupamos el ID de la compra o lo generamos nosotros?
+            CustomerOrder.Id = Guid.NewGuid().ToString();
             CustomerOrder.Customer.Id = User.UserId;
             CustomerOrder.Customer.Name = User.Name;
             CustomerOrder.Customer.Email = User.Email;
@@ -121,6 +121,7 @@ namespace checkoutservice.Controllers
             {
                 return Content("Error at send Email");
             }
+            //tenemos que regresar el id de la compra y el shippingtrackingid, el cargo de envio a pagar y total a pagar
             return Ok();
         }
     }

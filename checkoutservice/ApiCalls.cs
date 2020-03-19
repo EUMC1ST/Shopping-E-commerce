@@ -18,41 +18,38 @@ namespace checkoutservice
         public virtual Cart CartService(string userID)
         {
             pathController = "api/CartService/" + userID;
-            List<Items> items = new HttpRequests().TheGet<List<Items>>(pathController, "https://academia-cartservice.azurewebsites.net/");
+            List<Items> items = new HttpRequests().TheGet<List<Items>>(pathController, Environment.GetEnvironmentVariable("CartUrl"));
             return new Cart(items);
         }
 
         public virtual ProductInfo ProductCatalog(string productID)
         {
             pathController = "api/ProductCatalogService/" + productID;
-            //return request.TheGet<ProductInfo>(pathController, "https://academiaproductcatalogservice.azurewebsites.net/");
-            return new HttpRequests().TheGet<ProductInfo>(pathController, "https://academiaproductcatalogservice.azurewebsites.net/");
+            return new HttpRequests().TheGet<ProductInfo>(pathController, Environment.GetEnvironmentVariable("ProductCatalogUrl"));
         }
-
-        //INVENTADO--------------------------
 
         public virtual double Currency(CurrencyChange currencyChange)
         {
             pathController = "api/currency/conversion";
-            return new HttpRequests().ThePost<CurrencyChange,double>(currencyChange, pathController, "https://academia-currencyservice.azurewebsites.net/");
+            return new HttpRequests().ThePost<CurrencyChange,double>(currencyChange, pathController, Environment.GetEnvironmentVariable("CurrencyUrl"));
         }
 
         public virtual double Shipping(double totalCostOfProducts)
         {
-            pathController = "api/shipping" + totalCostOfProducts;
-            return new HttpRequests().TheGet<double>(pathController, "https://academia-shippingservice.azurewebsites.net/");
+            pathController = "api/shipping"+ totalCostOfProducts;
+            return new HttpRequests().ThePost<double,double>(totalCostOfProducts,pathController, Environment.GetEnvironmentVariable("ShippingUrl"));
         }
 
         public virtual string Payment(PaymentModel paymentModel)
         {
             pathController = "api/payment";
-            return new HttpRequests().ThePost<PaymentModel>(paymentModel, pathController, "https://academia-paymentservice.azurewebsites.net/");
+            return new HttpRequests().ThePost<PaymentModel>(paymentModel, pathController, Environment.GetEnvironmentVariable("PaymentUrl"));
         }
 
         public virtual ActionResult Email(Order CustomerOrder)
         {
             pathController = "api/Email";
-            return new HttpRequests().ThePost<Order, ActionResult>(CustomerOrder, pathController, "https://academy-emailservice.azurewebsites.net/");
+            return new HttpRequests().ThePost<Order, ActionResult>(CustomerOrder, pathController, Environment.GetEnvironmentVariable("EmailUrl"));
         }
     }
 }
