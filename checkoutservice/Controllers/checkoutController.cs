@@ -50,20 +50,20 @@ namespace checkoutservice.Controllers
             }
             //Obtenemos de el objeto regresado Cart obtenemos los ID de la lista Productos almacenada en Items
             try
-            {//hasta aqui todo bien
+            {
                 productInfo = cartList.Productos.Select(x => Api.ProductCatalog(x.idProduct)).ToList();
             }
             catch (Exception e)
             {
                 return Content("No se ha podido conectar con product catalog");
             }
-            //Hasta aqui todo sigue bien xD
+
             currencyChanges = productInfo.Select(x => new CurrencyChange()
             {
                 CurrencyCode = x.priceUsd.currencyCode,
                 Units = x.priceUsd.units,
                 Nano = x.priceUsd.nanos,
-                CurrencyType = User.CurrencyChange
+                CurrencyType = User.CurrencyExchange
             }).ToList();
             try
             {

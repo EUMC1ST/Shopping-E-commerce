@@ -19,6 +19,6 @@ namespace checkoutservice.Models
         public string Country { get; set; }
         public string ZipCode { get; set; }
         public string Email { get; set; }
-        public string CurrencyChange { get; set; }
+        public string CurrencyExchange { get; set; }
     }
 }
