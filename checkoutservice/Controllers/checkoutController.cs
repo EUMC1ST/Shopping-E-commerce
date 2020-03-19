@@ -76,8 +76,8 @@ namespace checkoutservice.Controllers
             double totalCostOfProducts = priceOfProducts.Select((x, i) => x * quantity[i]).Sum();
             // costo de envio *******Puede haber un cambio al mandar los parametros en Shipping*********
             //Hasta aqui todo bien
-            //double shippingCost = Api.Shipping(totalCostOfProducts, );
-            double shippingCost = 1000;
+            //double shippingCost = Api.Shipping(totalCostOfProducts, ); // FALTA ESTO----------
+            double shippingCost = 1000; // ----------------
             // total de compra
             double totalCost = totalCostOfProducts + shippingCost;
             //payment
@@ -111,7 +111,7 @@ namespace checkoutservice.Controllers
             CustomerOrder.Items = cartList.Productos;
             try
             {
-                ActionResult status = Api.Email(CustomerOrder);
+                ActionResult status = Api.Email(CustomerOrder); //EMAIL NO JALA
                 if (status is null || status is EmptyResult)
                 {
                     return Content("No se pudo mandar correo");
