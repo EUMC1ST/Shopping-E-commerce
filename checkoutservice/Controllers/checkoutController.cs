@@ -34,6 +34,7 @@ namespace checkoutservice.Controllers
             Cart cartList;
             List<ProductInfo> productInfo = new List<ProductInfo>();
             List<CurrencyChange> currencyChanges = new List<CurrencyChange>();
+            ShippingAddress address = new ShippingAddress() { City = User.City, Country = User.Country, StreetAddress1 = User.StreetAddress1, StreetAddress2 = User.StreetAddress2, ZipCode = User.ZipCode };
             List<double> priceOfProducts = new List<double>();
             try
             {
@@ -75,9 +76,11 @@ namespace checkoutservice.Controllers
             List<int> quantity = cartList.Productos.Select(x => x.quantity).ToList();
             double totalCostOfProducts = priceOfProducts.Select((x, i) => x * quantity[i]).Sum();
             //Shipping Methods
-            //string ShippingTrackingID = Api.
+
+            //string ShippingTrackingID = Api.ShippingTrackingID(address);
             //double shippingCost = Api.Shipping(totalCostOfProducts); // FALTA ESTO----------
             double shippingCost = 1000; // ----------------
+
             // total de compra
             double totalCost = totalCostOfProducts + shippingCost;
             //payment
