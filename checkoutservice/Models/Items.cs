@@ -7,7 +7,7 @@ namespace checkoutservice.Models
 {
     public class Items
     {
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
+        public string idProduct { get; set; }
+        public int quantity { get; set; }
     }
 }

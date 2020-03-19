@@ -11,41 +11,37 @@ namespace checkoutservice
     {
         List<ProductInfo> listProductos = new List<ProductInfo>()
             {
-                new ProductInfo(){ ProductID = 1,
-                    ProductName ="Tenis",
-                    Description = "jndoqn",
-                    Picture = "unload.img",
-                    Price = new Price(){
-                        CurrencyCode = "USD",
-                        Nano = 9999,
-                        Units = 67},
-                    Category ="Vintage"},
-                new ProductInfo(){ProductID = 2,
-                ProductName = "Chanclas",
-                Description="klsandaldmaldk",
-                Picture = "unload2.img",
-                Price = new Price(){ CurrencyCode="USD",
-                Nano = 58999,
-                Units = 79},
-                Category = "ChanclasVintage"}
+                new ProductInfo(){ id = "1",
+                    name ="Tenis",
+                    description = "jndoqn",
+                    picture = "unload.img",
+                    priceUsd = new Price(){
+                        currencyCode = "USD",
+                        nanos = 9999,
+                        units = 67},
+                    categories = new List<string>(){"Vintage" } },
+                new ProductInfo(){ id = "2",
+                name = "Chanclas",
+                description = "klsandaldmaldk",
+                picture = "unload2.img",
+                priceUsd = new Price(){ currencyCode = "USD",
+                nanos = 58999,
+                units = 79},
+                categories = new List<string>(){ "ChanclasVintage" } }
             };
-        public override Cart CartService(int userID)
+        public override Cart CartService(string userID)
         {
             List<Items> productos = new List<Items>() {
-                    new Items() { ProductId = 1, Quantity = 2 },
-                    new Items() { ProductId = 2, Quantity = 3 }
+                    new Items() { idProduct = "1", quantity = 2 },
+                    new Items() { idProduct = "2", quantity = 3 }
                 };
-            Cart carro = new Cart() { UserId = 987, Productos = productos };
-            if (carro.UserId == userID)
-            {
-                return carro;
-            }
+            Cart carro = new Cart() { Productos = productos };
             return null;
         }
 
-        public override ProductInfo ProductCatalog(int productID)
+        public override ProductInfo ProductCatalog(string productID)
         {
-            var producto = listProductos.Where(x => x.ProductID == productID).First();
+            var producto = listProductos.Where(x => x.id == productID).First();
             return producto;
         }
 

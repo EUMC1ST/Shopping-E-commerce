@@ -14,9 +14,9 @@ namespace CheckoutServiceUnitTest
         public void CheckoutService_Checkout_Returns()
         {
             UserInfo userinf = new UserInfo();
-            userinf.UserId = 987;
+            userinf.UserId = "987";
             userinf.Name = "Jesus";
-            userinf.NumTarget = "485028018302";
+            userinf.Credit_number_target = "485028018302";
             userinf.StreetAddress1 = "ancona";
             userinf.StreetAddress2 = "santa cecilia";
             userinf.City = "Monterrey";

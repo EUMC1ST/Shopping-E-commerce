@@ -50,7 +50,7 @@ namespace checkoutservice.Controllers
             //Obtenemos de el objeto regresado Cart obtenemos los ID de la lista Productos almacenada en Items
             try
             {//hasta aqui todo bien
-                productInfo = cartList.Productos.Select(x => Api.ProductCatalog(x.ProductId)).ToList();
+                productInfo = cartList.Productos.Select(x => Api.ProductCatalog(x.idProduct)).ToList();
             }
             catch (Exception e)
             {
@@ -59,9 +59,9 @@ namespace checkoutservice.Controllers
             //Hasta aqui todo sigue bien xD
             currencyChanges = productInfo.Select(x => new CurrencyChange()
             {
-                CurrencyCode = x.Price.CurrencyCode,
-                Units = x.Price.Units,
-                Nano = x.Price.Nano,
+                CurrencyCode = x.priceUsd.currencyCode,
+                Units = x.priceUsd.units,
+                Nano = x.priceUsd.nanos,
                 CurrencyType = User.CurrencyChange
             }).ToList();
             try
@@ -72,11 +72,12 @@ namespace checkoutservice.Controllers
             {
                 return Content("No ha sido posible conectar con CurrencyChange");
             }
-            List<int> quantity = cartList.Productos.Select(x => x.Quantity).ToList();
+            List<int> quantity = cartList.Productos.Select(x => x.quantity).ToList();
             double totalCostOfProducts = priceOfProducts.Select((x, i) => x * quantity[i]).Sum();
             // costo de envio *******Puede haber un cambio al mandar los parametros en Shipping*********
             //Hasta aqui todo bien
-            double shippingCost = Api.Shipping(totalCostOfProducts);
+            //double shippingCost = Api.Shipping(totalCostOfProducts, );
+            double shippingCost = 1000;
             // total de compra
             double totalCost = totalCostOfProducts + shippingCost;
             //payment
@@ -111,6 +112,10 @@ namespace checkoutservice.Controllers
             try
             {
                 ActionResult status = Api.Email(CustomerOrder);
+                if (status is null || status is EmptyResult)
+                {
+                    return Content("No se pudo mandar correo");
+                }
             }
             catch (Exception e)
             {

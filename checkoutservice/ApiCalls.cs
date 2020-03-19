@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace checkoutservice
@@ -20,14 +21,16 @@ namespace checkoutservice
             request = new HttpRequests();
         }
 
-        public virtual Cart CartService(int userID)
+        public virtual Cart CartService(string userID)
         {
-            pathController = "api/cart?userId=" + userID;
-            return request.TheGet<Cart>(pathController, "https://academia-cartservice.azurewebsites.net/");
+            pathController = "api/CartService/" + userID;
+            List<Items> items = request.TheGet<List<Items>>(pathController, "https://academia-cartservice.azurewebsites.net/");
+            return new Cart(items);
         }
-        public virtual ProductInfo ProductCatalog(int productID)
+
+        public virtual ProductInfo ProductCatalog(string productID)
         {
-            pathController = "api/productCatalogService/"+productID;
+            pathController = "api/ProductCatalogService/" + productID;
             return request.TheGet<ProductInfo>(pathController, "https://academiaproductcatalogservice.azurewebsites.net/");
         }
 
@@ -35,13 +38,13 @@ namespace checkoutservice
 
         public virtual double Currency(CurrencyChange currencyChange)
         {
-            pathController = "api/currency";
+            pathController = "api/currency/conversion";
             return request.ThePost<CurrencyChange,double>(currencyChange, pathController, "https://academia-currencyservice.azurewebsites.net/");
         }
 
         public virtual double Shipping(double totalCostOfProducts)
         {
-            pathController = ""+totalCostOfProducts;
+            pathController = "api/shipping" + totalCostOfProducts;
             return request.TheGet<double>(pathController, "https://academia-shippingservice.azurewebsites.net/");
         }
 
