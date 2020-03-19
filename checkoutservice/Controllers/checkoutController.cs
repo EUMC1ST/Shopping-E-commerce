@@ -77,12 +77,12 @@ namespace checkoutservice.Controllers
             double totalCostOfProducts = priceOfProducts.Select((x, i) => x * quantity[i]).Sum();
             //Shipping Methods
 
-            //string ShippingTrackingID = Api.ShippingTrackingID(address);
-            //double shippingCost = Api.Shipping(totalCostOfProducts); // FALTA ESTO----------
-            double shippingCost = 1000; // ----------------
+            var shippingTrackingID = Api.ShippingTracking(address);
+            ShippingCost costoenvio = new ShippingCost() { calculatedShippingCost = totalCostOfProducts };
+            ShippingCost shippingCost = Api.Shipping(costoenvio); // FALTA ESTO----------
 
             // total de compra
-            double totalCost = totalCostOfProducts + shippingCost;
+            double totalCost = totalCostOfProducts + shippingCost.calculatedShippingCost;
             //payment
             PaymentModel paymentModel = new PaymentModel()
             {

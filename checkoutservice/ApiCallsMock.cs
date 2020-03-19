@@ -55,9 +55,9 @@ namespace checkoutservice
             return pago;
         }
 
-        public override double Shipping(double totalCostOfProducts)
+        public override ShippingCost Shipping(ShippingCost totalCostOfProducts)
         {
-            return  totalCostOfProducts * 0.10;
+            return  new ShippingCost() { calculatedShippingCost = totalCostOfProducts.calculatedShippingCost * 0.10 };
         }
         public override string Payment(PaymentModel paymentModel)
         {

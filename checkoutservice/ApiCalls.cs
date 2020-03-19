@@ -34,10 +34,16 @@ namespace checkoutservice
             return new HttpRequests().ThePost<CurrencyChange,double>(currencyChange, pathController, Environment.GetEnvironmentVariable("CurrencyUrl"));
         }
 
-        public virtual double Shipping(double totalCostOfProducts)
+        public virtual ShippingCost Shipping(ShippingCost totalCostOfProducts)
         {
-            pathController = "api/shipping"+ totalCostOfProducts;
-            return new HttpRequests().ThePost<double,double>(totalCostOfProducts,pathController, Environment.GetEnvironmentVariable("ShippingUrl"));
+            pathController = "api/shipping/estimate/"+totalCostOfProducts.calculatedShippingCost;
+            return new HttpRequests().ThePost<ShippingCost, ShippingCost>(totalCostOfProducts,pathController, Environment.GetEnvironmentVariable("ShippingUrl"));
+        }
+
+        public virtual ShippingTrackingID ShippingTracking(ShippingAddress Address)
+        {
+            pathController = "api/shipping/tracking";
+            return new HttpRequests().ThePost<ShippingAddress, ShippingTrackingID>(Address, pathController, Environment.GetEnvironmentVariable("ShippingUrl"));
         }
 
         public virtual string Payment(PaymentModel paymentModel)
