@@ -29,7 +29,7 @@ namespace checkoutservice.Controllers
         [HttpPost]
         [Route("api/checkout/")]
         //En vez de recibir un UserID, recibir un objeto de tipo User.
-        public ActionResult CheckPaymentService(UserInfo User)
+        public CheckoutModel CheckPaymentService(UserInfo User)
         {
             Cart cartList;
             List<ProductInfo> productInfo = new List<ProductInfo>();
@@ -42,11 +42,11 @@ namespace checkoutservice.Controllers
             }
             catch (Exception e)
             {
-                return Content("No ha sido posible conectar con el api de cart");
+                return new CheckoutModel() { Message = "No ha sido posible conectar con el api de cart"};
             }
             if (cartList.Productos == null || cartList.Productos.Count == 0)
             {
-                return Content("No se han agregado Items al Cart");
+                return new CheckoutModel() { Message = "No se han agregado Items al Cart" };
             }
             //Obtenemos de el objeto regresado Cart obtenemos los ID de la lista Productos almacenada en Items
             try
@@ -55,7 +55,7 @@ namespace checkoutservice.Controllers
             }
             catch (Exception e)
             {
-                return Content("No se ha podido conectar con product catalog");
+                return new CheckoutModel() { Message = "No se ha podido conectar con product catalog" };
             }
 
             currencyChanges = productInfo.Select(x => new CurrencyChange()
@@ -71,7 +71,7 @@ namespace checkoutservice.Controllers
             }
             catch (Exception e)
             {
-                return Content("No ha sido posible conectar con CurrencyChange");
+                return new CheckoutModel() { Message = "No ha sido posible conectar con CurrencyChange" };
             }
             List<int> quantity = cartList.Productos.Select(x => x.quantity).ToList();
             double totalCostOfProducts = priceOfProducts.Select((x, i) => x * quantity[i]).Sum();
@@ -95,17 +95,18 @@ namespace checkoutservice.Controllers
             }
             catch (Exception e)
             {
-                return Content("Error at conecting to payment");
+                return new CheckoutModel() { Message = "Error at conecting to payment" };
             }
             //Email
+            string OrderId = Guid.NewGuid().ToString();
             Order CustomerOrder = new Order();
             CustomerOrder.Customer = new Customer();
             CustomerOrder.ShippingAddress = new ShippingAddress();
-            CustomerOrder.Id = Guid.NewGuid().ToString();
+            CustomerOrder.Id = OrderId;
             CustomerOrder.Customer.Id = User.UserId;
             CustomerOrder.Customer.Name = User.Name;
             CustomerOrder.Customer.Email = User.Email;
-            CustomerOrder.ShippingTrackingId = "";//Aun no se implementara
+            CustomerOrder.ShippingTrackingId = shippingTrackingID.trackingID;//Aun no se implementara
             CustomerOrder.ShippingAddress.StreetAddress1 = User.StreetAddress1;
             CustomerOrder.ShippingAddress.StreetAddress2 = User.StreetAddress2;
             CustomerOrder.ShippingAddress.City = User.City;
@@ -114,18 +115,19 @@ namespace checkoutservice.Controllers
             CustomerOrder.Items = cartList.Productos;
             try
             {
-                ActionResult status = Api.Email(CustomerOrder); //EMAIL NO JALA
-                if (status is null || status is EmptyResult)
+                var status = Api.Email(CustomerOrder); //EMAIL NO JALA
+                if (status is null)
                 {
-                    return Content("No se pudo mandar correo");
+                    return new CheckoutModel() { Message = "No se pudo mandar correo" };
                 }
             }
             catch (Exception e)
             {
-                return Content("Error at send Email");
+                return new CheckoutModel() { Message = "Error at send Email" };
             }
             //tenemos que regresar el id de la compra y el shippingtrackingid, el cargo de envio a pagar y total a pagar
-            return Ok();
+            return new CheckoutModel() { OderId = OrderId, Message = "se realizo checkout",
+                ShippingTrackingId = shippingTrackingID.trackingID, TotalToPay = totalCost };
         }
     }
 }

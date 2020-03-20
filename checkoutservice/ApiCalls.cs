@@ -18,44 +18,52 @@ namespace checkoutservice
         public virtual Cart CartService(string userID)
         {
             pathController = "api/CartService/" + userID;
-            List<Items> items = new HttpRequests().TheGet<List<Items>>(pathController, Environment.GetEnvironmentVariable("CartUrl"));
+ 
+            List<Items> items = new HttpRequests().TheGet<List<Items>>(pathController, 
+                Environment.GetEnvironmentVariable("CartUrl"));
             return new Cart(items);
         }
 
         public virtual ProductInfo ProductCatalog(string productID)
         {
             pathController = "api/ProductCatalogService/" + productID;
-            return new HttpRequests().TheGet<ProductInfo>(pathController, Environment.GetEnvironmentVariable("ProductCatalogUrl"));
+            return new HttpRequests().TheGet<ProductInfo>(pathController, 
+                Environment.GetEnvironmentVariable("ProductCatalogUrl"));
         }
 
         public virtual double Currency(CurrencyChange currencyChange)
         {
             pathController = "api/currency/conversion";
-            return new HttpRequests().ThePost<CurrencyChange,double>(currencyChange, pathController, Environment.GetEnvironmentVariable("CurrencyUrl"));
+            return new HttpRequests().ThePost<CurrencyChange,double>(currencyChange, pathController, 
+                Environment.GetEnvironmentVariable("CurrencyUrl"));
         }
 
         public virtual ShippingCost Shipping(ShippingCost totalCostOfProducts)
         {
             pathController = "api/shipping/estimate/"+totalCostOfProducts.calculatedShippingCost;
-            return new HttpRequests().ThePost<ShippingCost, ShippingCost>(totalCostOfProducts,pathController, Environment.GetEnvironmentVariable("ShippingUrl"));
+            return new HttpRequests().ThePost<ShippingCost, ShippingCost>(totalCostOfProducts,pathController, 
+                Environment.GetEnvironmentVariable("ShippingUrl"));
         }
 
         public virtual ShippingTrackingID ShippingTracking(ShippingAddress Address)
         {
             pathController = "api/shipping/tracking";
-            return new HttpRequests().ThePost<ShippingAddress, ShippingTrackingID>(Address, pathController, Environment.GetEnvironmentVariable("ShippingUrl"));
+            return new HttpRequests().ThePost<ShippingAddress, ShippingTrackingID>(Address, pathController, 
+                Environment.GetEnvironmentVariable("ShippingUrl"));
         }
 
         public virtual string Payment(PaymentModel paymentModel)
         {
             pathController = "api/payment";
-            return new HttpRequests().ThePost<PaymentModel>(paymentModel, pathController, Environment.GetEnvironmentVariable("PaymentUrl"));
+            return new HttpRequests().ThePost<PaymentModel>(paymentModel, pathController, 
+                Environment.GetEnvironmentVariable("PaymentUrl"));
         }
 
-        public virtual ActionResult Email(Order CustomerOrder)
+        public virtual EmailModel Email(Order CustomerOrder)
         {
             pathController = "api/Email";
-            return new HttpRequests().ThePost<Order, ActionResult>(CustomerOrder, pathController, Environment.GetEnvironmentVariable("EmailUrl"));
+            return new HttpRequests().ThePost<Order, EmailModel>(CustomerOrder, pathController, 
+                Environment.GetEnvironmentVariable("EmailUrl"));
         }
     }
 }

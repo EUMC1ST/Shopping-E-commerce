@@ -63,9 +63,9 @@ namespace checkoutservice
         {
             return "391030298310983";
         }
-        public override ActionResult Email(Order CustomerOrder)
+        public override EmailModel Email(Order CustomerOrder)
         {
-            return new OkResult();
+            return new EmailModel();
         }
     }
 }
