@@ -1,6 +1,6 @@
 Shopping
 
-Required environment variables
+Required environment variables in checkoutservice
 
 EmailUrl  https://academy-emailservice.azurewebsites.net/
 PaymentUrl https://academia-paymentservice.azurewebsites.net/
