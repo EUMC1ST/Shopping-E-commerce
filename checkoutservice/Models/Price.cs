@@ -2,8 +2,8 @@
 {
     public class Price
     {
-        public string CurrencyCode { get; set; }
-        public int Units { get; set; }
-        public double Nano { get; set; }
+        public string currencyCode { get; set; }
+        public int units { get; set; }
+        public double nanos { get; set; }
     }
 }

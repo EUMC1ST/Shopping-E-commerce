@@ -1,83 +1,69 @@
 ﻿using checkoutservice.Models;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace checkoutservice
 {
     public class ApiCalls
     {
-        HttpClient client = new HttpClient();
-        string BaseUrl = "alguna/url/delasapis";
         string pathController;
 
-        public virtual Cart CartService(int userID)
+        public virtual Cart CartService(string userID)
         {
-            pathController = "api/cart?userId=";
-            client.BaseAddress = new Uri(BaseUrl);
-            var response = client.GetAsync(pathController+userID);
-            response.Wait();
-            var result = response.Result;
-            var readresult = result.Content.ReadAsStringAsync().Result;
-            var resultadoFinal = JsonConvert.DeserializeObject<Cart>(readresult);
-            return resultadoFinal;
-        }
-        public virtual ProductInfo ProductCatalog(int productID)
-        {
-            pathController = "api/productCatalogService/";
-            client.BaseAddress = new Uri(BaseUrl);
-            var response = client.GetAsync(pathController + productID);
-            response.Wait();
-            var result = response.Result;
-            var readresult = result.Content.ReadAsStringAsync().Result;
-            var resultadoFinal = JsonConvert.DeserializeObject<ProductInfo>(readresult);
-            return resultadoFinal;
+            pathController = "api/CartService/" + userID;
+ 
+            List<Items> items = new HttpRequests().TheGet<List<Items>>(pathController, 
+                Environment.GetEnvironmentVariable("CartUrl"));
+            return new Cart(items);
         }
 
-        //INVENTADO--------------------------
+        public virtual ProductInfo ProductCatalog(string productID)
+        {
+            pathController = "api/ProductCatalogService/" + productID;
+            return new HttpRequests().TheGet<ProductInfo>(pathController, 
+                Environment.GetEnvironmentVariable("ProductCatalogUrl"));
+        }
 
         public virtual double Currency(CurrencyChange currencyChange)
         {
-            pathController = "";
-            client.BaseAddress = new Uri(BaseUrl);
-            string json = JsonConvert.SerializeObject(currencyChange); //----
-            var httpcontent = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = client.PostAsync(pathController, httpcontent);
-            response.Wait();
-            var result = response.Result;
-            var readresult = result.Content.ReadAsStringAsync().Result;
-            var resultadoFinal = JsonConvert.DeserializeObject<double>(readresult);
-            return resultadoFinal;
+            pathController = "api/currency/conversion";
+            return new HttpRequests().ThePost<CurrencyChange,double>(currencyChange, pathController, 
+                Environment.GetEnvironmentVariable("CurrencyUrl"));
         }
 
-        public virtual double Shipping(double totalCostOfProducts)
+        public virtual ShippingCost Shipping(ShippingCost totalCostOfProducts)
         {
-            pathController = "";
-            client.BaseAddress = new Uri(BaseUrl);
-            var response = client.GetAsync(pathController + totalCostOfProducts);
-            response.Wait();
-            var result = response.Result;
-            var readresult = result.Content.ReadAsStringAsync().Result;
-            var ShippingCost = JsonConvert.DeserializeObject<double>(readresult);
-            return ShippingCost;
+            pathController = "api/shipping/estimate/"+totalCostOfProducts.calculatedShippingCost;
+            return new HttpRequests().ThePost<ShippingCost, ShippingCost>(totalCostOfProducts,pathController, 
+                Environment.GetEnvironmentVariable("ShippingUrl"));
+        }
+
+        public virtual ShippingTrackingID ShippingTracking(ShippingAddress Address)
+        {
+            pathController = "api/shipping/tracking";
+            return new HttpRequests().ThePost<ShippingAddress, ShippingTrackingID>(Address, pathController, 
+                Environment.GetEnvironmentVariable("ShippingUrl"));
         }
 
         public virtual string Payment(PaymentModel paymentModel)
         {
-            pathController = "";
-            client.BaseAddress = new Uri(BaseUrl);
-            string json = JsonConvert.SerializeObject(paymentModel); //----
-            var httpcontent = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = client.PostAsync(pathController, httpcontent);
-            response.Wait();
-            var result = response.Result;
-            var readresult = result.Content.ReadAsStringAsync().Result;
-            var TransactionId = JsonConvert.DeserializeObject<string>(readresult);
-            return TransactionId;
+            pathController = "api/payment";
+            return new HttpRequests().ThePost<PaymentModel>(paymentModel, pathController, 
+                Environment.GetEnvironmentVariable("PaymentUrl"));
+        }
+
+        public virtual EmailModel Email(Order CustomerOrder)
+        {
+            pathController = "api/Email";
+            return new HttpRequests().ThePost<Order, EmailModel>(CustomerOrder, pathController, 
+                Environment.GetEnvironmentVariable("EmailUrl"));
         }
     }
 }

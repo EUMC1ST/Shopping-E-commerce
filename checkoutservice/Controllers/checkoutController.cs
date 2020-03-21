@@ -18,56 +18,116 @@ namespace checkoutservice.Controllers
         {
             if (test == false)
             {
-                Api = new ApiCalls();
+                Api = new ApiCalls(); 
             }
             else
             {
                 //AGARRA EL MOCK
+                Api = new ApiCallsMock();
             }
         }
         [HttpPost]
-        [Route("api/checkout/checkPaymentService")]
+        [Route("api/checkout/")]
         //En vez de recibir un UserID, recibir un objeto de tipo User.
-        public ActionResult CheckPaymentService(UserInfo User)
+        public CheckoutModel CheckPaymentService(UserInfo User)
         {
-            var cartList = Api.CartService(User.UserId);
-            //Obtenemos de el objeto regresado Cart obtenemos los ID de la lista Productos almacenada en Items
-            //var productsID = cartList.Productos.Select(x => x.ProductId).ToList();
-            List<ProductInfo> productInfo = cartList.Productos.Select(x => Api.ProductCatalog(x.ProductId)).ToList();
+            Cart cartList;
+            List<ProductInfo> productInfo = new List<ProductInfo>();
             List<CurrencyChange> currencyChanges = new List<CurrencyChange>();
-            foreach (var item in productInfo)
+            ShippingAddress address = new ShippingAddress() { City = User.City, Country = User.Country, StreetAddress1 = User.StreetAddress1, StreetAddress2 = User.StreetAddress2, ZipCode = User.ZipCode };
+            List<double> priceOfProducts = new List<double>();
+            try
             {
-                currencyChanges.Add(new CurrencyChange() {
-                    CurrencyCode = item.Price.CurrencyCode,
-                    Units = item.Price.Units, Nano = item.Price.Nano, CurrencyType = User.CurrencyChange
-                });
+                cartList = Api.CartService(User.UserId);
             }
-            //List<double> priceOfProducts = productInfo.Select(x => Api.Currency(x.Price, currencyType)).ToList();
-            List<double> priceOfProducts = currencyChanges.Select(x => Api.Currency(x)).ToList();
-            List<int> quantity = cartList.Productos.Select(x => x.Quantity).ToList();
-            List<double> costs = new List<double>();
-            for (int i = 0; i < priceOfProducts.Count; i++)
+            catch (Exception e)
             {
-                costs.Add(quantity[i] * priceOfProducts[i]);
+                return new CheckoutModel() { Message = "No ha sido posible conectar con el api de cart"};
             }
-            double totalCostOfProducts = costs.Sum();
+            if (cartList.Productos == null || cartList.Productos.Count == 0)
+            {
+                return new CheckoutModel() { Message = "No se han agregado Items al Cart" };
+            }
+            //Obtenemos de el objeto regresado Cart obtenemos los ID de la lista Productos almacenada en Items
+            try
+            {
+                productInfo = cartList.Productos.Select(x => Api.ProductCatalog(x.idProduct)).ToList();
+            }
+            catch (Exception e)
+            {
+                return new CheckoutModel() { Message = "No se ha podido conectar con product catalog" };
+            }
 
-            // costo de envio
-            double shippingCost = Api.Shipping(totalCostOfProducts);
+            currencyChanges = productInfo.Select(x => new CurrencyChange()
+            {
+                CurrencyCode = x.priceUsd.currencyCode,
+                Units = x.priceUsd.units,
+                Nano = x.priceUsd.nanos,
+                CurrencyType = User.CurrencyExchange
+            }).ToList();
+            try
+            {
+                priceOfProducts = currencyChanges.Select(x => Api.Currency(x)).ToList();
+            }
+            catch (Exception e)
+            {
+                return new CheckoutModel() { Message = "No ha sido posible conectar con CurrencyChange" };
+            }
+            List<int> quantity = cartList.Productos.Select(x => x.quantity).ToList();
+            double totalCostOfProducts = priceOfProducts.Select((x, i) => x * quantity[i]).Sum();
+            //Shipping Methods
+
+            var shippingTrackingID = Api.ShippingTracking(address);
+            ShippingCost costoenvio = new ShippingCost() { calculatedShippingCost = totalCostOfProducts };
+            ShippingCost shippingCost = Api.Shipping(costoenvio); // FALTA ESTO----------
+
             // total de compra
-            double totalCost = totalCostOfProducts + shippingCost;
-
+            double totalCost = totalCostOfProducts + shippingCost.calculatedShippingCost;
             //payment
-            PaymentModel paymentModel = new PaymentModel(){
-                    TargetNumber = User.NumTarget,
-                    TotalToPay = totalCost
-                };
-            string TransactionId = Api.Payment(paymentModel);
-            //-------------
-
+            PaymentModel paymentModel = new PaymentModel()
+            {
+                TargetNumber = User.Credit_number_target,
+                TotalToPay = totalCost
+            };
+            try
+            {
+                string TransactionId = Api.Payment(paymentModel);
+            }
+            catch (Exception e)
+            {
+                return new CheckoutModel() { Message = "Error at conecting to payment" };
+            }
             //Email
-
-            return Ok();
+            string OrderId = Guid.NewGuid().ToString();
+            Order CustomerOrder = new Order();
+            CustomerOrder.Customer = new Customer();
+            CustomerOrder.ShippingAddress = new ShippingAddress();
+            CustomerOrder.Id = OrderId;
+            CustomerOrder.Customer.Id = User.UserId;
+            CustomerOrder.Customer.Name = User.Name;
+            CustomerOrder.Customer.Email = User.Email;
+            CustomerOrder.ShippingTrackingId = shippingTrackingID.trackingID;//Aun no se implementara
+            CustomerOrder.ShippingAddress.StreetAddress1 = User.StreetAddress1;
+            CustomerOrder.ShippingAddress.StreetAddress2 = User.StreetAddress2;
+            CustomerOrder.ShippingAddress.City = User.City;
+            CustomerOrder.ShippingAddress.Country = User.Country;
+            CustomerOrder.ShippingAddress.ZipCode = User.ZipCode;
+            CustomerOrder.Items = cartList.Productos;
+            try
+            {
+                var status = Api.Email(CustomerOrder); //EMAIL NO JALA
+                if (status is null)
+                {
+                    return new CheckoutModel() { Message = "No se pudo mandar correo" };
+                }
+            }
+            catch (Exception e)
+            {
+                return new CheckoutModel() { Message = "Error at send Email" };
+            }
+            //tenemos que regresar el id de la compra y el shippingtrackingid, el cargo de envio a pagar y total a pagar
+            return new CheckoutModel() { OderId = OrderId, Message = "se realizo checkout",
+                ShippingTrackingId = shippingTrackingID.trackingID, TotalToPay = totalCost };
         }
     }
 }

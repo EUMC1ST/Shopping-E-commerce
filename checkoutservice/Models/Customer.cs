@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace checkoutservice.Models
 {
-    public class Items
+    public class Customer
     {
-        public string idProduct { get; set; }
-        public int quantity { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
     }
 }

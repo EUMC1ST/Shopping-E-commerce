@@ -7,7 +7,13 @@ namespace checkoutservice.Models
 {
     public class Cart
     {
-        public int UserId { get; set; }
+        public Cart() { }
+
+        public Cart(List<Items> lista)
+        {
+            Productos = lista;
+        }
+
         public List<Items> Productos { get; set; }
     }
 }

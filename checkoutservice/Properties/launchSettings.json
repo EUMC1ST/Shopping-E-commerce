@@ -14,7 +14,13 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "EmailUrl": "https://academy-emailservice.azurewebsites.net/",
+        "PaymentUrl": "https://academia-paymentservice.azurewebsites.net/",
+        "CartUrl": "https://academia-cartservice.azurewebsites.net/",
+        "CurrencyUrl": "https://academia-currencyservice.azurewebsites.net/",
+        "ShippingUrl": "https://academia-shippingservice.azurewebsites.net/",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ProductCatalogUrl": "https://academiaproductcatalogservice.azurewebsites.net/"
       }
     },
     "checkoutservice": {

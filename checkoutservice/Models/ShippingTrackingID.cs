@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace checkoutservice.Models
 {
-    public class Items
+    public class ShippingTrackingID
     {
-        public string idProduct { get; set; }
-        public int quantity { get; set; }
+        public string trackingID { get; set; }
     }
 }
