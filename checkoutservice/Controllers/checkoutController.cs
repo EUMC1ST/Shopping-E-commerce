@@ -86,7 +86,7 @@ namespace checkoutservice.Controllers
             //payment
             PaymentModel paymentModel = new PaymentModel()
             {
-                TargetNumber = User.Credit_number_target,
+                TargetNumber = User.Credit_number_Card,
                 TotalToPay = totalCost
             };
             try
