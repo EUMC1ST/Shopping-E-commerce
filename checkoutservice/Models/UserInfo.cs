@@ -9,8 +9,8 @@ namespace checkoutservice.Models
     {
         public string UserId { get; set; }
         public string Credit_number_target { get; set; }
-        public string Month { get; set; }
-        public string Year { get; set; }
+        public string Credit_Card_Month { get; set; }
+        public string Credit_Card_Year { get; set; }
         public int CVV { get; set; }
         public string Name { get; set; }
         public string StreetAddress1 { get; set; }
